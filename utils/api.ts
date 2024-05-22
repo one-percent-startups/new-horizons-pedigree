@@ -3,7 +3,7 @@
 import axios from "axios";
 export const app_api = axios.create({
     timeout: 60000,
-    baseURL: "http://localhost:8080/api",
+    baseURL: "https://clinic-uat-api.enpointe.io/api",
 });
 
 app_api.interceptors.request.use((config) => {
