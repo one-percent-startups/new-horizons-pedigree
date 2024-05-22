@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
+// import { useNavigate } from "react-router-dom";
+// import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 import { Formik } from "formik";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import app_api from "../../../utils/api";
 
 function Pedigree() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [patient, setPatient] = useState([]);
   async function getPatient() {
@@ -22,16 +22,6 @@ function Pedigree() {
   return (
     <div className="px-4 h-[80vh] sm:px-6 lg:px-8">
       <div>
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="inline-flex items-center rounded-md border mb-6 border-transparent bg-indigo-100 px-3 py-2 text-sm font-medium leading-4 text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          <span className="w-5 mr-2">
-            <ArrowUturnLeftIcon />
-          </span>{" "}
-          Back
-        </button>
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">
             Upload Pedigree
