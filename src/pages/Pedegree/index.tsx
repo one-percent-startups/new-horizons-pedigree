@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 import { Formik } from "formik";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import app_api from "../../../utils/api";
 import resizeImage from "../../../utils/resizeImage";
 function Pedigree() {
-  // const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [disable, setDisable] = useState<boolean>(true);
   const handleFileChange = async (
