@@ -114,7 +114,7 @@ function Pedigree() {
                         name="file"
                         onChange={handleFileChange}
                         accept="image/*"
-                        capture="environment"
+                        // capture="environment"
                         className="block w-full max-w-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
                       />
                     </div>
