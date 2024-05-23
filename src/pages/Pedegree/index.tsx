@@ -10,15 +10,17 @@ import resizeImage from "../../../utils/resizeImage";
 function Pedigree() {
   // const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
-
+  const [disable, setDisable] = useState<boolean>(true);
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setDisable(true);
     const imageFile = event.target.files?.[0];
     if (imageFile) {
       try {
         const resizedImage = await resizeImage(imageFile);
         setFile(resizedImage);
+        setDisable(false);
       } catch (error) {
         console.error("Image resize failed:", error);
       }
@@ -127,10 +129,11 @@ function Pedigree() {
             <div className="pt-5">
               <div className="flex justify-end">
                 <button
+                  disabled={disable}
                   type="submit"
                   className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Submit
+                  {disable ? "Fetching Image" : "Upload"}
                 </button>
               </div>
             </div>
