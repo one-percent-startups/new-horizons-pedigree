@@ -6,10 +6,24 @@ import { Formik } from "formik";
 import toast from "react-hot-toast";
 import Select from "react-select";
 import app_api from "../../../utils/api";
-
+import resizeImage from "../../../utils/resizeImage";
 function Pedigree() {
   // const navigate = useNavigate();
+  const [file, setFile] = useState<File | null>(null);
 
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const imageFile = event.target.files?.[0];
+    if (imageFile) {
+      try {
+        const resizedImage = await resizeImage(imageFile);
+        setFile(resizedImage);
+      } catch (error) {
+        console.error("Image resize failed:", error);
+      }
+    }
+  };
   const [patient, setPatient] = useState([]);
   async function getPatient() {
     const res = await app_api.get("/patient");
@@ -37,7 +51,7 @@ function Pedigree() {
         }}
         onSubmit={async (values) => {
           const payload = new FormData();
-          payload.append("file", values.file);
+          payload.append("file", file as any);
           try {
             const res = await app_api.post(
               `/patient/pedigree-chart-upload/${values.patient_id}`,
@@ -51,7 +65,7 @@ function Pedigree() {
           }
         }}
       >
-        {({ values, setFieldValue, setValues, handleSubmit }) => (
+        {({ values, setValues, handleSubmit }) => (
           <form
             onSubmit={handleSubmit}
             className="space-y-8 divide-y divide-gray-200"
@@ -99,10 +113,9 @@ function Pedigree() {
                       <input
                         type="file"
                         name="file"
+                        onChange={handleFileChange}
                         accept="image/*"
-                        onChange={(d: any) => {
-                          setFieldValue("file", d?.target?.files[0]);
-                        }}
+                        capture="environment"
                         className="block w-full max-w-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
                       />
                     </div>
