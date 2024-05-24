@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import app_api from "../../../utils/api";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 const Login = () => {
   const navigate = useNavigate();
   const user = localStorage.getItem("newhorizon_user");
@@ -20,10 +21,13 @@ const Login = () => {
     try {
       const res = await app_api.post("/auth/login", body);
       if (res.data.data) {
-        localStorage.setItem("newhorizon_user", JSON.stringify(res.data.data));
+        await localStorage.setItem(
+          "newhorizon_user",
+          JSON.stringify(res.data.data)
+        );
+        window.location.reload();
       }
       toast.success("logged In");
-      navigate("/"); // TODO: Add home page route
     } catch (error: any) {
       toast.error(error.message);
     }
